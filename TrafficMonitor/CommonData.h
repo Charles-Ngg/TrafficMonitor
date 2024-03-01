@@ -328,7 +328,11 @@ struct GeneralSettingData
     };
     NotifyTipSettings memory_usage_tip;     //用内存使用率超出提示
     NotifyTipSettings cpu_temp_tip;         //CPU温度超出提示
+    NotifyTipSettings cpu_temp_warn;        //CPU温度警告
+    NotifyTipSettings cpu_temp_shutdown;    //CPU温度关机
     NotifyTipSettings gpu_temp_tip;         //显卡温度超出提示
+    NotifyTipSettings gpu_temp_warn;        //显卡温度警告
+    NotifyTipSettings gpu_temp_shutdown;    //显卡温度关机
     NotifyTipSettings hdd_temp_tip;         //硬盘温度超出提示
     NotifyTipSettings mainboard_temp_tip;   //主板温度超出提示
 

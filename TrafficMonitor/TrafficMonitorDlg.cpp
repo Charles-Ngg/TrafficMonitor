@@ -1559,6 +1559,35 @@ void CTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
             }
         };
 
+        //TODO:checkNotifyWarn
+        auto checkNotifyWarn = [&](GeneralSettingData::NotifyTipSettings setting_data, int value, int& last_value, int& notify_time, LPCTSTR tip_str)
+        {
+            if (setting_data.enable)
+            {
+                if (last_value < setting_data.tip_value && value >= setting_data.tip_value && (m_timer_cnt - notify_time > static_cast<unsigned int>(theApp.m_notify_interval)))
+                {
+                    // ShowNotifyTip(CCommon::LoadText(_T("TrafficMonitor "), IDS_NOTIFY), tip_str);
+                    MessageBoxW( tip_str, tip_str, MB_OK);
+                    notify_time = m_timer_cnt;
+
+                }
+                last_value = value;
+            }
+        };
+        //TODO:checkNotifyShutdown
+        auto checkNotifyShutdown = [&](GeneralSettingData::NotifyTipSettings setting_data, int value, int& last_value, int& notify_time, LPCTSTR tip_str)
+        {
+            if (setting_data.enable)
+            {
+                if (last_value < setting_data.tip_value && value >= setting_data.tip_value && (m_timer_cnt - notify_time > static_cast<unsigned int>(theApp.m_notify_interval)))
+                {
+                    ShowNotifyTip(CCommon::LoadText(_T("TrafficMonitor "), IDS_NOTIFY), tip_str);
+                    notify_time = m_timer_cnt;
+                }
+                last_value = value;
+            }
+        };
+
         //检查是否要弹出内存使用率超出提示
         CString info;
         info.Format(CCommon::LoadText(IDS_MEMORY_UDAGE_EXCEED, _T(" %d%%!")), theApp.m_memory_usage);
@@ -1572,11 +1601,31 @@ void CTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
         static int cpu_temp_notify_time{ -theApp.m_notify_interval };       //记录上次弹出提示时的时间
         checkNotifyTip(theApp.m_general_data.cpu_temp_tip, theApp.m_cpu_temperature, last_cpu_temp, cpu_temp_notify_time, info.GetString());
 
+        //检查是否要弹出CPU温度使用率超出警告
+        info.Format(CCommon::LoadText(IDS_CPU_TEMPERATURE_EXCEED, _T(" %d°C!")), static_cast<int>(theApp.m_cpu_temperature));
+        static int cpu_temp_notify_time_warn{ -theApp.m_notify_interval };       //记录上次弹出提示时的时间
+        checkNotifyWarn(theApp.m_general_data.cpu_temp_warn, theApp.m_cpu_temperature, last_cpu_temp, cpu_temp_notify_time_warn, info.GetString());
+
+        //检查是否要弹出CPU温度使用率超出关机
+        info.Format(CCommon::LoadText(IDS_CPU_TEMPERATURE_EXCEED, _T(" %d°C!")), static_cast<int>(theApp.m_cpu_temperature));
+        static int cpu_temp_notify_time_shutdown{ -theApp.m_notify_interval };       //记录上次弹出提示时的时间
+        checkNotifyShutdown(theApp.m_general_data.cpu_temp_shutdown, theApp.m_cpu_temperature, last_cpu_temp, cpu_temp_notify_time_shutdown, info.GetString());
+
         //检查是否要弹出显卡温度使用率超出提示
         info.Format(CCommon::LoadText(IDS_GPU_TEMPERATURE_EXCEED, _T(" %d°C!")), static_cast<int>(theApp.m_gpu_temperature));
         static int last_gpu_temp;
         static int gpu_temp_notify_time{ -theApp.m_notify_interval };       //记录上次弹出提示时的时间
         checkNotifyTip(theApp.m_general_data.gpu_temp_tip, theApp.m_gpu_temperature, last_gpu_temp, gpu_temp_notify_time, info.GetString());
+
+        //检查是否要弹出显卡温度使用率超出警告
+        info.Format(CCommon::LoadText(IDS_GPU_TEMPERATURE_EXCEED, _T(" %d°C!")), static_cast<int>(theApp.m_gpu_temperature));
+        static int gpu_temp_notify_time_warn{ -theApp.m_notify_interval };       //记录上次弹出提示时的时间
+        checkNotifyWarn(theApp.m_general_data.gpu_temp_warn, theApp.m_gpu_temperature, last_gpu_temp, gpu_temp_notify_time_warn, info.GetString());
+
+        //检查是否要弹出显卡温度使用率超出关机
+        info.Format(CCommon::LoadText(IDS_GPU_TEMPERATURE_EXCEED, _T(" %d°C!")), static_cast<int>(theApp.m_gpu_temperature));
+        static int gpu_temp_notify_time_shutdown{ -theApp.m_notify_interval };       //记录上次弹出提示时的时间
+        checkNotifyShutdown(theApp.m_general_data.gpu_temp_shutdown, theApp.m_gpu_temperature, last_gpu_temp, gpu_temp_notify_time_shutdown, info.GetString());
 
         //检查是否要弹出硬盘温度使用率超出提示
         info.Format(CCommon::LoadText(IDS_HDD_TEMPERATURE_EXCEED, _T(" %d°C!")), static_cast<int>(theApp.m_hdd_temperature));

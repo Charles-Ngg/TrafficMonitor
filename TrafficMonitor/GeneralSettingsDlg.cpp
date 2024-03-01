@@ -55,7 +55,11 @@ void CGeneralSettingsDlg::SetControlMouseWheelEnable(bool enable)
     m_memory_tip_edit.SetMouseWheelEnable(enable);
     m_monitor_span_edit.SetMouseWheelEnable(enable);
     m_cpu_temp_tip_edit.SetMouseWheelEnable(enable);
+    m_cpu_temp_warn_edit.SetMouseWheelEnable(enable);
+    m_cpu_temp_shutdown_edit.SetMouseWheelEnable(enable);
     m_gpu_temp_tip_edit.SetMouseWheelEnable(enable);
+    m_gpu_temp_warn_edit.SetMouseWheelEnable(enable);
+    m_gpu_temp_shutdown_edit.SetMouseWheelEnable(enable);
     m_hdd_temp_tip_edit.SetMouseWheelEnable(enable);
     m_mbd_temp_tip_edit.SetMouseWheelEnable(enable);
     m_hard_disk_combo.SetMouseWheelEnable(enable);
@@ -109,7 +113,11 @@ void CGeneralSettingsDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_LANGUAGE_COMBO, m_language_combo);
     DDX_Control(pDX, IDC_MONITOR_SPAN_EDIT, m_monitor_span_edit);
     DDX_Control(pDX, IDC_CPU_TEMP_TIP_EDIT, m_cpu_temp_tip_edit);
+    DDX_Control(pDX, IDC_CPU_TEMP_WARN_EDIT, m_cpu_temp_warn_edit);
+    DDX_Control(pDX, IDC_CPU_TEMP_SHUTDOWN_EDIT, m_cpu_temp_shutdown_edit);
     DDX_Control(pDX, IDC_GPU_TEMP_TIP_EDIT, m_gpu_temp_tip_edit);
+    DDX_Control(pDX, IDC_GPU_TEMP_WARN_EDIT, m_gpu_temp_warn_edit);
+    DDX_Control(pDX, IDC_GPU_TEMP_SHUTDOWN_EDIT, m_gpu_temp_shutdown_edit);
     DDX_Control(pDX, IDC_HDD_TIP_EDIT, m_hdd_temp_tip_edit);
     DDX_Control(pDX, IDC_MBD_TEMP_TIP_EDIT, m_mbd_temp_tip_edit);
     DDX_Control(pDX, IDC_SELECT_HARD_DISK_COMBO, m_hard_disk_combo);
@@ -124,7 +132,11 @@ void CGeneralSettingsDlg::SetControlEnable()
     m_traffic_tip_combo.EnableWindow(m_data.traffic_tip_enable);
     m_memory_tip_edit.EnableWindow(m_data.memory_usage_tip.enable);
     m_cpu_temp_tip_edit.EnableWindow(m_data.cpu_temp_tip.enable);
+    m_cpu_temp_warn_edit.EnableWindow(m_data.cpu_temp_warn.enable);
+    m_cpu_temp_shutdown_edit.EnableWindow(m_data.cpu_temp_shutdown.enable);
     m_gpu_temp_tip_edit.EnableWindow(m_data.gpu_temp_tip.enable);
+    m_gpu_temp_warn_edit.EnableWindow(m_data.gpu_temp_warn.enable);
+    m_gpu_temp_shutdown_edit.EnableWindow(m_data.gpu_temp_shutdown.enable);
     m_hdd_temp_tip_edit.EnableWindow(m_data.hdd_temp_tip.enable);
     m_mbd_temp_tip_edit.EnableWindow(m_data.mainboard_temp_tip.enable);
 
@@ -148,7 +160,11 @@ BEGIN_MESSAGE_MAP(CGeneralSettingsDlg, CTabDlg)
     ON_NOTIFY(UDN_DELTAPOS, SPIN_ID, &CGeneralSettingsDlg::OnDeltaposSpin)
     ON_EN_KILLFOCUS(IDC_MONITOR_SPAN_EDIT, &CGeneralSettingsDlg::OnEnKillfocusMonitorSpanEdit)
     ON_BN_CLICKED(IDC_CPU_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedCpuTempTipCheck)
+    ON_BN_CLICKED(IDC_CPU_TEMP_WARN_CHECK, &CGeneralSettingsDlg::OnBnClickedCpuTempWarnCheck)
+    ON_BN_CLICKED(IDC_CPU_TEMP_SHUTDOWN_CHECK, &CGeneralSettingsDlg::OnBnClickedCpuTempShutdownCheck)
     ON_BN_CLICKED(IDC_GPU_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedGpuTempTipCheck)
+    ON_BN_CLICKED(IDC_GPU_TEMP_WARN_CHECK, &CGeneralSettingsDlg::OnBnClickedGpuTempWarnCheck)
+    ON_BN_CLICKED(IDC_GPU_TEMP_SHUTDOWN_CHECK, &CGeneralSettingsDlg::OnBnClickedGpuTempShutdownCheck)
     ON_BN_CLICKED(IDC_HDD_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedHddTempTipCheck)
     ON_BN_CLICKED(IDC_MBD_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedMbdTempTipCheck)
     ON_BN_CLICKED(IDC_GITHUB_RADIO, &CGeneralSettingsDlg::OnBnClickedGithubRadio)
@@ -225,9 +241,25 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
     m_cpu_temp_tip_edit.SetRange(1, 100);
     m_cpu_temp_tip_edit.SetValue(m_data.cpu_temp_tip.tip_value);
 
+    CheckDlgButton(IDC_CPU_TEMP_WARN_CHECK, m_data.cpu_temp_warn.enable);
+    m_cpu_temp_warn_edit.SetRange(1, 100);
+    m_cpu_temp_warn_edit.SetValue(m_data.cpu_temp_warn.tip_value);
+
+    CheckDlgButton(IDC_CPU_TEMP_SHUTDOWN_CHECK, m_data.cpu_temp_shutdown.enable);
+    m_cpu_temp_shutdown_edit.SetRange(1, 100);
+    m_cpu_temp_shutdown_edit.SetValue(m_data.cpu_temp_shutdown.tip_value);
+
     CheckDlgButton(IDC_GPU_TEMP_TIP_CHECK, m_data.gpu_temp_tip.enable);
     m_gpu_temp_tip_edit.SetRange(1, 100);
     m_gpu_temp_tip_edit.SetValue(m_data.gpu_temp_tip.tip_value);
+
+    CheckDlgButton(IDC_GPU_TEMP_WARN_CHECK, m_data.gpu_temp_warn.enable);
+    m_gpu_temp_warn_edit.SetRange(1, 100);
+    m_gpu_temp_warn_edit.SetValue(m_data.gpu_temp_warn.tip_value);
+
+    CheckDlgButton(IDC_GPU_TEMP_SHUTDOWN_CHECK, m_data.gpu_temp_shutdown.enable);
+    m_gpu_temp_shutdown_edit.SetRange(1, 100);
+    m_gpu_temp_shutdown_edit.SetValue(m_data.gpu_temp_shutdown.tip_value);
 
     CheckDlgButton(IDC_HDD_TEMP_TIP_CHECK, m_data.hdd_temp_tip.enable);
     m_hdd_temp_tip_edit.SetRange(1, 100);
@@ -292,9 +324,17 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
     //不含温度监控的版本，禁用温度相关的控件
 #ifdef WITHOUT_TEMPERATURE
     EnableDlgCtrl(IDC_CPU_TEMP_TIP_CHECK, false);
+    EnableDlgCtrl(IDC_CPU_TEMP_WARN_CHECK, false);
+    EnableDlgCtrl(IDC_CPU_TEMP_SHUTDOWN_CHECK, false);
     EnableDlgCtrl(IDC_CPU_TEMP_TIP_EDIT, false);
+    EnableDlgCtrl(IDC_CPU_TEMP_WARN_EDIT, false);
+    EnableDlgCtrl(IDC_CPU_TEMP_SHUTDOWN_EDIT, false);
     EnableDlgCtrl(IDC_GPU_TEMP_TIP_CHECK, false);
+    EnableDlgCtrl(IDC_GPU_TEMP_WARN_CHECK, false);
+    EnableDlgCtrl(IDC_GPU_TEMP_SHUTDOWN_CHECK, false);
     EnableDlgCtrl(IDC_GPU_TEMP_TIP_EDIT, false);
+    EnableDlgCtrl(IDC_GPU_TEMP_WARN_EDIT, false);
+    EnableDlgCtrl(IDC_GPU_TEMP_SHUTDOWN_EDIT, false);
     EnableDlgCtrl(IDC_HDD_TEMP_TIP_CHECK, false);
     EnableDlgCtrl(IDC_HDD_TIP_EDIT, false);
     EnableDlgCtrl(IDC_MBD_TEMP_TIP_CHECK, false);
@@ -357,7 +397,6 @@ void CGeneralSettingsDlg::OnBnClickedAllowSkinDispStrCheck()
     m_data.allow_skin_cover_text = (((CButton*)GetDlgItem(IDC_ALLOW_SKIN_DISP_STR_CHECK))->GetCheck() != 0);
 }
 
-
 void CGeneralSettingsDlg::OnOK()
 {
     // TODO: 在此添加专用代码和/或调用基类
@@ -378,8 +417,17 @@ void CGeneralSettingsDlg::OnOK()
     m_data.cpu_temp_tip.tip_value = m_cpu_temp_tip_edit.GetValue();
     checkTipValue(m_data.cpu_temp_tip.tip_value);
 
+    m_data.cpu_temp_warn.tip_value = m_cpu_temp_warn_edit.GetValue();
+    checkTipValue(m_data.cpu_temp_warn.tip_value);
+
+    m_data.cpu_temp_shutdown.tip_value = m_cpu_temp_shutdown_edit.GetValue();
+    checkTipValue(m_data.cpu_temp_shutdown.tip_value);
+
     m_data.gpu_temp_tip.tip_value = m_gpu_temp_tip_edit.GetValue();
     checkTipValue(m_data.gpu_temp_tip.tip_value);
+
+    m_data.gpu_temp_warn.tip_value = m_gpu_temp_warn_edit.GetValue();
+    checkTipValue(m_data.gpu_temp_warn.tip_value);
 
     m_data.hdd_temp_tip.tip_value = m_hdd_temp_tip_edit.GetValue();
     checkTipValue(m_data.hdd_temp_tip.tip_value);
@@ -524,7 +572,6 @@ void CGeneralSettingsDlg::OnEnKillfocusMonitorSpanEdit()
     m_monitor_span_edit.SetValue(value);
 }
 
-
 void CGeneralSettingsDlg::OnBnClickedCpuTempTipCheck()
 {
     // TODO: 在此添加控件通知处理程序代码
@@ -532,6 +579,17 @@ void CGeneralSettingsDlg::OnBnClickedCpuTempTipCheck()
     SetControlEnable();
 }
 
+void CGeneralSettingsDlg::OnBnClickedCpuTempWarnCheck()
+{
+    m_data.cpu_temp_warn.enable = (IsDlgButtonChecked(IDC_CPU_TEMP_WARN_CHECK) != 0);
+    SetControlEnable();
+}
+
+void CGeneralSettingsDlg::OnBnClickedCpuTempShutdownCheck()
+{
+    m_data.cpu_temp_shutdown.enable = (IsDlgButtonChecked(IDC_CPU_TEMP_SHUTDOWN_CHECK) != 0);
+    SetControlEnable();
+}
 
 void CGeneralSettingsDlg::OnBnClickedGpuTempTipCheck()
 {
@@ -540,6 +598,17 @@ void CGeneralSettingsDlg::OnBnClickedGpuTempTipCheck()
     SetControlEnable();
 }
 
+void CGeneralSettingsDlg::OnBnClickedGpuTempWarnCheck()
+{
+    m_data.gpu_temp_warn.enable = (IsDlgButtonChecked(IDC_GPU_TEMP_WARN_CHECK) != 0);
+    SetControlEnable();
+}
+
+void CGeneralSettingsDlg::OnBnClickedGpuTempShutdownCheck()
+{
+    m_data.gpu_temp_shutdown.enable = (IsDlgButtonChecked(IDC_GPU_TEMP_SHUTDOWN_CHECK) != 0);
+    SetControlEnable();
+}
 
 void CGeneralSettingsDlg::OnBnClickedHddTempTipCheck()
 {

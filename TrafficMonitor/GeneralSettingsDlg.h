@@ -45,7 +45,11 @@ protected:
     CToolTipCtrl m_toolTip;
     CSpinEdit m_monitor_span_edit;
     CSpinEdit m_cpu_temp_tip_edit;
+    CSpinEdit m_cpu_temp_warn_edit;
+    CSpinEdit m_cpu_temp_shutdown_edit;
     CSpinEdit m_gpu_temp_tip_edit;
+    CSpinEdit m_gpu_temp_warn_edit;
+    CSpinEdit m_gpu_temp_shutdown_edit;
     CSpinEdit m_hdd_temp_tip_edit;
     CSpinEdit m_mbd_temp_tip_edit;
     CComboBox2 m_hard_disk_combo;
@@ -86,7 +90,11 @@ public:
     afx_msg void OnDeltaposSpin(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnEnKillfocusMonitorSpanEdit();
     afx_msg void OnBnClickedCpuTempTipCheck();
+    afx_msg void OnBnClickedCpuTempWarnCheck();
+    afx_msg void OnBnClickedCpuTempShutdownCheck();
     afx_msg void OnBnClickedGpuTempTipCheck();
+    afx_msg void OnBnClickedGpuTempWarnCheck();
+    afx_msg void OnBnClickedGpuTempShutdownCheck();
     afx_msg void OnBnClickedHddTempTipCheck();
     afx_msg void OnBnClickedMbdTempTipCheck();
     afx_msg void OnBnClickedGithubRadio();

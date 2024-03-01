@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ 生成的包含文件。
-// 供 TrafficMonitor.rc 使用
+// Microsoft Visual C++ generated include file.
+// Used by TrafficMonitor.rc
 //
 #define IDD_TRAFFICMONITOR_DIALOG       102
 #define IDR_MAINFRAME                   128
@@ -388,18 +388,22 @@
 #define IDC_GPU_TEMP_STATIC             1064
 #define IDC_MEMORY_LABLE_STATIC         1065
 #define IDC_HDD_TEMP_STATIC             1065
+#define IDC_CPU_TEMP_STATIC2            1065
 #define IDC_UP_STATIC8                  1066
 #define IDC_MEMORY_VALUE_STATIC         1066
 #define IDC_MEMORY_STATIC2              1066
 #define IDC_MBD_TEMP_STATIC             1066
 #define IDC_UP_LABLE_STATIC             1067
+#define IDC_CPU_TEMP_STATIC3            1067
 #define IDC_DOUBLE_CLICK_COMBO          1068
+#define IDC_CPU_TEMP_STATIC4            1068
 #define IDC_TODAY_TRAFFIC_TIP_CHECK     1069
 #define IDC_TODAY_TRAFFIC_TIP_EDIT      1070
 #define IDC_MEMORY_USAGE_TIP_CHECK      1071
 #define IDC_MEMORY_USAGE_TIP_EDIT       1072
 #define IDC_TODAY_TRAFFIC_TIP_COMBO     1073
 #define IDC_STATIC_COPYRIGHT            1074
+#define IDC_CPU_TEMP_STATIC5            1074
 #define IDC_LANGUAGE_COMBO              1075
 #define IDC_CPU_TEMP_LABLE_STATIC       1076
 #define IDC_CPU_TEMP_TIP_EDIT           1076
@@ -424,6 +428,7 @@
 #define IDC_MAIN_BOARD_TEMP_VALUE_STATIC 1083
 #define IDC_MBD_TEMP_TIP_EDIT           1083
 #define IDC_INDEX_STATIC                1084
+#define IDC_GPU_TEMP_TIP_CHECK3         1084
 #define IDC_STATIC_ACKNOWLEDGEMENT      1085
 #define IDC_TRADITIONAL_CHINESE_TRANSLATOR_STATIC 1086
 #define IDC_TRANSLATOR_STATIC           1087
@@ -508,14 +513,21 @@
 #define IDC_OPEN_SKIN_DIR_STATIC        1161
 #define IDC_RESET_AUTO_RUN_BUTTON       1162
 #define IDS_CPU_FREQ                    1163
-#define IDC_WINDOW_OFFSET_TOP_NEGATIVE_CHECK      1166
+#define IDC_WINDOW_OFFSET_TOP_NEGATIVE_CHECK 1166
 #define IDC_WINDOW_OFFSET_TOP_EDIT      1167
-#define IDC_VERTICAL_MARGIN_EDIT      1168
-#define IDC_VERTICAL_MARGIN_NEGATIVE_CHECK      1169
-#define ID_32771                        32771
+#define IDC_VERTICAL_MARGIN_EDIT        1168
+#define IDC_VERTICAL_MARGIN_NEGATIVE_CHECK 1169
 #define IDC_DISABLE_D2D                 1170
 #define IDC_GDI_RADIO                   1171
 #define IDC_D2D_RADIO                   1172
+#define IDC_CPU_TEMP_WARN_CHECK         1200
+#define IDC_CPU_TEMP_SHUTDOWN_CHECK     1201
+#define IDC_GPU_TEMP_WARN_CHECK         1202
+#define IDC_GPU_TEMP_SHUTDOWN_CHECK     1203
+#define IDC_CPU_TEMP_WARN_EDIT          1204
+#define IDC_CPU_TEMP_SHUTDOWN_EDIT      1205
+#define IDC_GPU_TEMP_WARN_EDIT          1206
+#define IDC_GPU_TEMP_SHUTDOWN_EDIT      1207
 #define ID_32771                        32771
 #define ID_NETWORK_INFO                 32772
 #define ID_32773                        32773
@@ -637,7 +649,6 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        341
 #define _APS_NEXT_COMMAND_VALUE         33665
-
 #define _APS_NEXT_CONTROL_VALUE         1173
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
