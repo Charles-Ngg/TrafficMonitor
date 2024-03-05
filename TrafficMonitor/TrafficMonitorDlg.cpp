@@ -13,6 +13,7 @@
 #include "PluginInfoDlg.h"
 #include "WIC.h"
 #include "SupportedRenderEnums.h"
+#include <powrprof.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -1564,10 +1565,11 @@ void CTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
         {
             if (setting_data.enable)
             {
-                if (last_value < setting_data.tip_value && value >= setting_data.tip_value && (m_timer_cnt - notify_time > static_cast<unsigned int>(theApp.m_notify_interval)))
+                if (value >= setting_data.tip_value )
                 {
-                    // ShowNotifyTip(CCommon::LoadText(_T("TrafficMonitor "), IDS_NOTIFY), tip_str);
-                    MessageBoxW( tip_str, tip_str, MB_OK);
+                    AfxMessageBox(_T("High temperature warning."), MB_OK | MB_SYSTEMMODAL);
+                    PostQuitMessage(0);
+                    PlaySound((LPCTSTR)SND_ALIAS_SYSTEMEXIT, NULL, SND_ALIAS_ID);
                     notify_time = m_timer_cnt;
 
                 }
@@ -1581,7 +1583,8 @@ void CTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
             {
                 if (last_value < setting_data.tip_value && value >= setting_data.tip_value && (m_timer_cnt - notify_time > static_cast<unsigned int>(theApp.m_notify_interval)))
                 {
-                    ShowNotifyTip(CCommon::LoadText(_T("TrafficMonitor "), IDS_NOTIFY), tip_str);
+                    // Put the system into sleep mode
+                    SetSuspendState(FALSE, TRUE, FALSE);
                     notify_time = m_timer_cnt;
                 }
                 last_value = value;
